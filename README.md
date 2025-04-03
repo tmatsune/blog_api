@@ -1,3 +1,6 @@
+Project: 1 Blog API 
+A minimal blog api made with nodejs. Made for simple create, read, update, and delete
+
 /blog-project
 │── /backend                 # Node.js backend
 │   ├── /src                 
@@ -30,5 +33,4 @@
 │   ├── /migrations          # SQL migration scripts
 │   ├── /seeds               # Sample data
 │
-│── .gitignore
-│── README.md
+│── .gitignore│── README.md
