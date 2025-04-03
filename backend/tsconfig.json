@@ -1,4 +1,3 @@
-
 {
   "compilerOptions": {
     "target": "ES6", // ES6 or later for modern JavaScript output
