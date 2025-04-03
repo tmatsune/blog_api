@@ -1,0 +1,16 @@
+
+{
+  "compilerOptions": {
+    "target": "ES6", // ES6 or later for modern JavaScript output
+    "module": "ESNext", // Use ES Modules for Node.js
+    "outDir": "./dist", // Output directory for compiled JS files
+    "rootDir": "./src", // Root directory for TypeScript files
+    "esModuleInterop": true, // Allow CommonJS imports (for compatibility)
+    "moduleResolution": "node", // Resolve modules like Node.js
+    "strict": true, // Enable all strict type-checking options
+    "skipLibCheck": true, // Skip checking of declaration files for faster builds
+    "sourceMap": true // Enable source maps for debugging
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

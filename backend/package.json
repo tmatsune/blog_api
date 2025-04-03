@@ -1,10 +1,16 @@
 {
-  "name": "backend",
+  "name": "api backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "backend for api",
   "main": "index.js",
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "ts-node": "^10.9.2", 
+    "typescript": "^5.8.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
