@@ -28,4 +28,14 @@ export const add_user = (first_name, last_name) => __awaiter(void 0, void 0, voi
         });
     });
 });
+export const get_user = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
+        db.all(`SELECT * FROM users WHERE id=?`, id, (err, rows) => {
+            if (err)
+                reject(err);
+            else
+                resolve(rows);
+        });
+    });
+});
 //# sourceMappingURL=user_controller.js.map

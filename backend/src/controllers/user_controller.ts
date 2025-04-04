@@ -21,3 +21,14 @@ export const add_user = async(first_name: string, last_name: string): Promise<vo
         });
     })
 }
+
+export const get_user = async(id: number): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        db.all(`SELECT * FROM users WHERE id=?`, id, (err, rows) => {
+            if(err)
+                reject(err);
+            else
+                resolve(rows);
+        });
+    })
+}
