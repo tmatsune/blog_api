@@ -34,3 +34,28 @@ A minimal blog api made with nodejs. Made for simple create, read, update, and d
 │   ├── /seeds               # Sample data
 │
 │── .gitignore│── README.md
+
+BACKEND 
+/blog-api
+│── /src
+│   │── /config
+│   │   ├── database.ts   # Database connection setup
+│   │── /routes
+│   │   ├── postRoutes.ts # Routes for blog posts
+│   │── /controllers
+│   │   ├── postController.ts # Handles request logic
+│   │── /models
+│   │   ├── postModel.ts  # Database model/queries
+│   │── index.ts  # Entry point
+│── .env  # Environment variables
+│── package.json
+│── tsconfig.json
+│── README.md
+
+Breakdown:
+server.js initializes your app, configures middleware, and sets up routes.
+controllers/ contains the route handlers (functions to process the requests).
+models/ define the structure of your data and interact with the database.
+services/ contain business logic and interact with models.
+routes/ define how HTTP requests are routed to controllers.
+middlewares/ are custom functions that intercept requests (like for authentication).

@@ -1,0 +1,1 @@
+console.log("reading post: list all post from db");

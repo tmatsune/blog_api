@@ -1,20 +1,47 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { config } from "dotenv";
-console.log("connecting to backend...");
+import express from 'express';
+import { db } from "./config/db.js";
+import { get_users, add_user } from "./controllers/user_controller.js";
+
 config();
-
 const PORT = process.env.PORT;
+console.log(db);
 
-const server = createServer( (req: IncomingMessage, res: ServerResponse) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");  // Allows any origin
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+// CREATE INSTANCE OF APP 
+const app = express();
 
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    const confirm_message = {message: "Blog Backend API"};
-    res.end(JSON.stringify(confirm_message));
+// DEFINE SIMPLE ROUTE
+app.get('/', (req, res) => {
+    res.send('Blog API Home');
 });
 
-server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/`);
+// USER ROUTE 
+app.get('/users', async (req, res) => {
+    try{
+        const users = await get_users();
+        res.status(200);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(users));
+    } catch(err) {
+        res.status(500).send(`Error fetching users: ${err}`);
+    }
 });
+app.post('/user', async(req, res) => {
+    //const {first_name, last_name} = req.body;
+    console.log(req);
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
+    try{
+        await add_user(first_name, last_name);
+        res.status(200);
+        res.send({"message": "Success"})
+    } catch(err){
+        res.status(500).send(`ERROR saving data: ${err}`);
+    }   
+})
+
+// START SERVER 
+app.listen(PORT, () => {
+    console.log(`Listening on port: http://localhost:${PORT}/`);
+})
