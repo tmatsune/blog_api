@@ -1,8 +1,8 @@
-import { createServer, IncomingMessage, ServerResponse } from "http";
 import { config } from "dotenv";
 import express from 'express';
 import { db } from "./config/db.js";
 import { get_users, add_user, get_user } from "./controllers/user_controller.js";
+import { get_posts, add_post, get_user_post, get_single_post, delete_single_post } from "./controllers/blog_controller.js";
 
 config();
 const PORT = process.env.PORT;
@@ -52,7 +52,53 @@ app.get('/user/:id', async(req, res) => {
     }
 })
 
+// POSTS ROUTE
+app.get('/posts', async(req, res) => {
+    try {
+        const posts = await get_posts();
+        res.status(200);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(posts));
+    } catch(err) {
+        res.status(500).send(`ERROR getting posts: ${err}`);
+    }
+});
+
+app.post('/post', async(req, res) => {
+    try{
+        const { user_id, content } = req.body;
+        await add_post(user_id, content);
+        res.status(200);
+        res.send({"message": "Success"});
+    } catch(err) {
+        res.status(500).send(`ERROR posting post: ${err}`);
+    }
+});
+
+app.get('/posts/:id', async(req, res) => {
+    const user_id = Number(req.params.id);
+    try{
+        const users_posts = await get_user_post(user_id);
+        res.status(200);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(users_posts));
+    } catch(err){
+        res.status(500).send(`ERROR getting posts for user: ${err}`)
+    }
+});
+
+app.delete('/post/:post_id', async(req, res) => {
+    const post_id = Number(req.params.post_id);
+    try{
+        await delete_single_post(post_id);
+        res.status(200);
+        res.send({"message": "Success"})
+    }catch(err){
+        res.status(500).send(`ERROR getting posts for user: ${err}`)
+    }
+})
+
 // START SERVER 
 app.listen(PORT, () => {
     console.log(`Listening on port: http://localhost:${PORT}/`);
-})
+});
