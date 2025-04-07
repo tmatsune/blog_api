@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { config } from "dotenv";
 import express from 'express';
+import cors from 'cors'; //npm i --save-dev @types/cors
 import { db } from "./config/db.js";
 import { get_users, add_user, get_user } from "./controllers/user_controller.js";
 import { get_posts, add_post, get_user_post, delete_single_post } from "./controllers/blog_controller.js";
@@ -18,9 +19,14 @@ console.log(db);
 // CREATE INSTANCE OF APP 
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin: 'http://127.0.0.1:5500' // 👈 your frontend origin
+}));
 // DEFINE SIMPLE ROUTE
 app.get('/', (req, res) => {
-    res.send('Blog API Home');
+    res.status(200);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({ "message": "Blog API INDEX" });
 });
 // USER ROUTE 
 app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
