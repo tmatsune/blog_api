@@ -26,7 +26,7 @@ app.use(cors({
 app.get('/', (req, res) => {
     res.status(200);
     res.setHeader('Content-Type', 'application/json');
-    res.send({ "message": "Blog API INDEX" });
+    res.send({ "message": "Connected to BLOG API" });
 });
 // USER ROUTE 
 app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
